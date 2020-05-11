@@ -4,6 +4,11 @@ import PropTypes from 'prop-types'
 class Book extends React.Component{
     constructor(props) {
         super(props);
+
+        this.state = {
+            title: "",
+            author: ""
+        };
     }
     render() {
         return (
@@ -20,8 +25,8 @@ class Book extends React.Component{
                         </select>
                     </div>
                 </div>
-                <div className="book-title">To Kill a Mockingbird</div>
-                <div className="book-authors">Harper Lee</div>
+                <div className="book-title">{this.state.title}</div>
+                <div className="book-authors">{this.state.author}</div>
             </div>
         )
     }
