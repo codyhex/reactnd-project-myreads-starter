@@ -14,11 +14,9 @@ class Bookshelf extends Component {
   render() {
     // 没办法我想从data里把这个信息抽取出来，但是那样就变得特别不可控了。
     // 所以不如把这个弄城市fixed 约定好的类别，要改只能从这里改。
-    const shelfNames = {
-      "currentlyReading": "Currently Reading",
-      "wantToRead": "Want To Read",
-      "read": "Read"
-    }
+    const shelfNames = ["currentlyReading", "wantToRead", "read"]
+    const shelfDisplayNames = ["Currently Reading", "Want To Read", "Read"]
+
 
     const {booksOnShelf} = this.props
 
@@ -54,22 +52,27 @@ class Bookshelf extends Component {
     const booksByShelfName = groupBy(booksOnShelf, 'shelf');
 
     console.log(booksByShelfName)
+    console.log(booksByShelfName['wantToRead'])
 
     return (
       <div>
-        {
-          Object.keys(shelfNames).map((key, index) => (
-
-          (
-            <div id={key} className="list-books-content">
-              <div className="shelf">
-                <h2 className="shelf-title">{shelfNames[key]}</h2>
-              </div>
-            </div>
-          )
-          )
-          )
-        }
+        {/*{shelfNames.map((key, index) => {  //如果后面返回的东西是很多个的话就要用 花括号*/}
+        {/*    // return 后面跟的语句括号必须在同一行*/}
+        {/*    return (*/}
+        {/*      <div id={key} className="list-books-content">*/}
+        {/*        <div className="shelf">*/}
+        {/*          <h2 className="shelf-title">{shelfDisplayNames[index]}</h2>*/}
+        {/*          {booksByShelfName[key]*/}
+        {/*            .map(book => (*/}
+        {/*              <Book book={book}*/}
+        {/*              />*/}
+        {/*            ))*/}
+        {/*          }*/}
+        {/*        </div>*/}
+        {/*      </div>*/}
+        {/*    )*/}
+        {/*  }*/}
+        {/*)}*/}
       </div>
     );
   }

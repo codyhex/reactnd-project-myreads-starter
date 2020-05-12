@@ -1,7 +1,6 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import Book from './Book'
 import Bookshelf from './Bookshelf'
 
 class BooksApp extends React.Component {
@@ -77,9 +76,7 @@ class BooksApp extends React.Component {
                     <ol className="books-grid">
                       <li>
                         <div>
-                          <Book
-                            data={this.state.book_0}
-                          />
+
                         </div>
                       </li>
                       <li>
