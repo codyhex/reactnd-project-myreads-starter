@@ -60,6 +60,7 @@ class BooksApp extends React.Component {
           <div className="list-books">
             <Bookshelf
             /*  把数据data， 也就是书全部传进 shelf 里面，让他自己独立现实好。*/
+              shelfName={"default"}
               booksOnShelf = {this.state.books}
             />
             {/* 这里注意原件只是一个 tag 然后结束就行了 */}
