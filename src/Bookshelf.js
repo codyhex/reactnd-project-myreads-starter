@@ -17,25 +17,10 @@ class Bookshelf extends Component {
     const shelfNames = ["currentlyReading", "wantToRead", "read"]
     const shelfDisplayNames = ["Currently Reading", "Want To Read", "Read"]
 
-
     const {booksOnShelf} = this.props
-
     // 然后注意了：这个shelf 不需要hold data，只是用来render
     // 抽取好对应的 book 给 该 shelf
 
-    // for (let key in shelfNames) {
-    //
-    // }
-
-    // return (
-    //   <div>
-    //     {
-    //       Object.keys(vals).map((key, index) => (
-    //         <p key={index}> this is my key {key} and this is my value {vals[key]}</p>
-    //       ))
-    //     }
-    //   </div>
-    // )
     // Accepts the array and key
     const groupBy = (array, key) => {
       // Return the end result
@@ -51,42 +36,35 @@ class Bookshelf extends Component {
 
     const booksByShelfName = groupBy(booksOnShelf, 'shelf');
 
-    console.log(booksByShelfName)
-    console.log(booksByShelfName['wantToRead'])
+    // console.log(booksByShelfName)
+    // console.log(booksByShelfName['wantToRead'])
 
     return (
       <div>
+        {/* 这里直接安装 book 属性里面的 shelf name 创建相对应 shelf render view */}
         {shelfNames.map((key, index) => {
             // 上面的那个花括号在 React里面解释为：小括号的话会自动 return里面 wrap的东西。
             // 花括号你就得自己写 return， 而且记住 return 后面不能空，那样就会 return undefined object
             return (
-              <div id={key} className="list-books-content">
-              <div className="shelf">
-                <h2 className="shelf-title">{shelfDisplayNames[index]}</h2>
+              <div id={key} className="bookshelf">
+                <h2 className="bookshelf-title">{shelfDisplayNames[index]}</h2>
                 {console.log('out book', booksByShelfName[key])}
-                {/* 下面这个地方调了好久都调不出来，总是 item undefined。最后凭借经验，我才就是初始化和异步的问题
-                    结果猜对了。 用condition先验证一下就行！ https://www.debuggr.io/react-map-of-undefined/ */}
-                {booksByShelfName[key] && booksByShelfName[key].map(book => (
-                    <Book book={book}
-                    />
-                  )
-                  )}
-              </div>
-            </div>)
-
-
+                <div className="bookshelf-books">
+                  <ol className="books-grid">
+                    {booksByShelfName[key] && booksByShelfName[key].map(book => (
+                        <li key={book.id} className="list-books-content">
+                          <Book book={book}/>
+                        </li>
+                      )
+                    )}
+                    {/* 下面这个地方调了好久都调不出来，总是 item undefined。最后凭借经验，我才就是初始化和异步的问题
+                          结果猜对了。 用condition先验证一下就行！ https://www.debuggr.io/react-map-of-undefined/ */}
+                  </ol>
+                </div>
+              </div>)
           }
-
           // 前面这个 小括号是 map 的，总是报错太难找了。
         )}
-
-
-        {/*{shelfNames.map((key, index) => {  //如果后面返回的东西是很多个的话就要用 花括号*/}
-        {/*    // return 后面跟的语句括号必须在同一行*/}
-        {/*    return (*/}
-        {/*    )*/}
-        {/*  }*/}
-        {/*)}*/}
       </div>
     );
   }
