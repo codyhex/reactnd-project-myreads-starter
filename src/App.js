@@ -15,6 +15,16 @@ class BooksApp extends React.Component {
     books: [],
   }
 
+  moveBook = (book, shelf) => {
+    if (this.state.books) {
+      BooksAPI.update(book,shelf).then(() => {
+        book.shelf = shelf;
+        this.setState(state => ({
+          books: state.books.filter(b => b.id !== book.id).concat([ book ])
+        }))
+      })
+    }
+  }
 
   componentDidMount() {
     // 这个fetch后台的数据里面装的是 book info array list
@@ -61,6 +71,7 @@ class BooksApp extends React.Component {
             /*  把数据data， 也就是书全部传进 shelf 里面，让他自己独立现实好。*/
               shelfName={"default"}
               booksOnShelf = {this.state.books}
+              onMoveBook={this.moveBook}
             />
             {/* 这里注意原件只是一个 tag 然后结束就行了 */}
 

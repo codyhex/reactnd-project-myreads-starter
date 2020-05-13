@@ -7,15 +7,17 @@ class Bookshelf extends Component {
   static propTypes = {
     // 所有书的data从上面传进来
     shelfName: PropTypes.string.isRequired,
-    booksOnShelf: PropTypes.array.isRequired
+    booksOnShelf: PropTypes.array.isRequired,
+    onMoveBook: PropTypes.func.isRequired
 
   }
 
   render() {
     // 没办法我想从data里把这个信息抽取出来，但是那样就变得特别不可控了。
     // 所以不如把这个弄城市fixed 约定好的类别，要改只能从这里改。
-    const shelfNameKeys = ["currentlyReading", "wantToRead", "read"]
-    const shelfDisplayNames = ["Currently Reading", "Want To Read", "Read"]
+    // render 里面的方法可以看见 下面的变量，但是不可以直接条用 props 里面的，需要加写 this.props.var
+    const shelfNameKeys = ["currentlyReading", "wantToRead", "read", "none"]
+    const shelfDisplayNames = ["Currently Reading", "Want To Read", "Read", "None"]
 
     const {booksOnShelf} = this.props
     // 然后注意了：这个shelf 不需要hold data，只是用来render
@@ -35,8 +37,6 @@ class Bookshelf extends Component {
     };
 
     const booksByShelfName = groupBy(booksOnShelf, 'shelf');
-    onMoveBook => (book, key);
-
     // console.log(booksByShelfName)
     // console.log(booksByShelfName['wantToRead'])
 
@@ -48,11 +48,11 @@ class Bookshelf extends Component {
             // 花括号你就得自己写 return， 而且记住 return 后面不能空，那样就会 return undefined object
             let data_each_grid = booksByShelfName[key]; // 这里开一个 ref var 简化代码长度
             return (
-              <div id={key} className="bookshelf">
+              <div key={key+"-shelf"} className="bookshelf">
                 <h2 className="bookshelf-title">{shelfDisplayNames[index]}</h2>
-                {console.log('out book', booksByShelfName[key])}
+                {/*{console.log('out book', booksByShelfName[key])}*/}
                 <div className="bookshelf-books">
-                  <ol className="books-grid">
+                  <ol key={key+"-grid"} className="books-grid">
                     {/* 下面这个地方调了好久都调不出来，总是 item undefined。最后凭借经验，我才就是初始化和异步的问题
                           结果猜对了。 用condition先验证一下就行！ https://www.debuggr.io/react-map-of-undefined/ */}
                     {data_each_grid && data_each_grid.sort(sortBy('title')).map(book => (
@@ -61,7 +61,7 @@ class Bookshelf extends Component {
                           book={book}
                           shelfNameKeys={shelfNameKeys}
                           shelfDisplayNames={shelfDisplayNames}
-                          onMoveBook={onMoveBook}/>
+                          onMoveBook={this.props.onMoveBook}/>
                       </li>)
                     )}
                   </ol>
