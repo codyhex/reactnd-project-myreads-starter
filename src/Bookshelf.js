@@ -56,20 +56,34 @@ class Bookshelf extends Component {
 
     return (
       <div>
+        {shelfNames.map((key, index) => {
+            // 上面的那个花括号在 React里面解释为：小括号的话会自动 return里面 wrap的东西。
+            // 花括号你就得自己写 return， 而且记住 return 后面不能空，那样就会 return undefined object
+            return (
+              <div id={key} className="list-books-content">
+              <div className="shelf">
+                <h2 className="shelf-title">{shelfDisplayNames[index]}</h2>
+                {console.log('out book', booksByShelfName[key])}
+                {/* 下面这个地方调了好久都调不出来，总是 item undefined。最后凭借经验，我才就是初始化和异步的问题
+                    结果猜对了。 用condition先验证一下就行！ https://www.debuggr.io/react-map-of-undefined/ */}
+                {booksByShelfName[key] && booksByShelfName[key].map(book => (
+                    <Book book={book}
+                    />
+                  )
+                  )}
+              </div>
+            </div>)
+
+
+          }
+
+          // 前面这个 小括号是 map 的，总是报错太难找了。
+        )}
+
+
         {/*{shelfNames.map((key, index) => {  //如果后面返回的东西是很多个的话就要用 花括号*/}
         {/*    // return 后面跟的语句括号必须在同一行*/}
         {/*    return (*/}
-        {/*      <div id={key} className="list-books-content">*/}
-        {/*        <div className="shelf">*/}
-        {/*          <h2 className="shelf-title">{shelfDisplayNames[index]}</h2>*/}
-        {/*          {booksByShelfName[key]*/}
-        {/*            .map(book => (*/}
-        {/*              <Book book={book}*/}
-        {/*              />*/}
-        {/*            ))*/}
-        {/*          }*/}
-        {/*        </div>*/}
-        {/*      </div>*/}
         {/*    )*/}
         {/*  }*/}
         {/*)}*/}
