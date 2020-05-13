@@ -14,7 +14,7 @@ class Bookshelf extends Component {
   render() {
     // 没办法我想从data里把这个信息抽取出来，但是那样就变得特别不可控了。
     // 所以不如把这个弄城市fixed 约定好的类别，要改只能从这里改。
-    const shelfNames = ["currentlyReading", "wantToRead", "read"]
+    const shelfNameKeys = ["currentlyReading", "wantToRead", "read"]
     const shelfDisplayNames = ["Currently Reading", "Want To Read", "Read"]
 
     const {booksOnShelf} = this.props
@@ -35,6 +35,7 @@ class Bookshelf extends Component {
     };
 
     const booksByShelfName = groupBy(booksOnShelf, 'shelf');
+    onMoveBook => (book, key);
 
     // console.log(booksByShelfName)
     // console.log(booksByShelfName['wantToRead'])
@@ -42,7 +43,7 @@ class Bookshelf extends Component {
     return (
       <div>
         {/* 这里直接安装 book 属性里面的 shelf name 创建相对应 shelf render view */}
-        {shelfNames.map((key, index) => {
+        {shelfNameKeys.map((key, index) => {
             // 上面的那个花括号在 React里面解释为：小括号的话会自动 return里面 wrap的东西。
             // 花括号你就得自己写 return， 而且记住 return 后面不能空，那样就会 return undefined object
             let data_each_grid = booksByShelfName[key]; // 这里开一个 ref var 简化代码长度
@@ -55,11 +56,14 @@ class Bookshelf extends Component {
                     {/* 下面这个地方调了好久都调不出来，总是 item undefined。最后凭借经验，我才就是初始化和异步的问题
                           结果猜对了。 用condition先验证一下就行！ https://www.debuggr.io/react-map-of-undefined/ */}
                     {data_each_grid && data_each_grid.sort(sortBy('title')).map(book => (
-                          <li key={book.id} className="list-books-content">
-                            <Book book={book}/>
-                          </li>
-                        )
-                      )}
+                      <li key={book.id} className="list-books-content">
+                        <Book
+                          book={book}
+                          shelfNameKeys={shelfNameKeys}
+                          shelfDisplayNames={shelfDisplayNames}
+                          onMoveBook={onMoveBook}/>
+                      </li>)
+                    )}
                   </ol>
                 </div>
               </div>)
