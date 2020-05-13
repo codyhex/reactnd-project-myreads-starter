@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Book from './Book'
-import Shelf from "./Shelf";
 import PropTypes from 'prop-types'
+import sortBy from 'sort-by'
 
 class Bookshelf extends Component {
   static propTypes = {
@@ -45,20 +45,21 @@ class Bookshelf extends Component {
         {shelfNames.map((key, index) => {
             // 上面的那个花括号在 React里面解释为：小括号的话会自动 return里面 wrap的东西。
             // 花括号你就得自己写 return， 而且记住 return 后面不能空，那样就会 return undefined object
+            let data_each_grid = booksByShelfName[key]; // 这里开一个 ref var 简化代码长度
             return (
               <div id={key} className="bookshelf">
                 <h2 className="bookshelf-title">{shelfDisplayNames[index]}</h2>
                 {console.log('out book', booksByShelfName[key])}
                 <div className="bookshelf-books">
                   <ol className="books-grid">
-                    {booksByShelfName[key] && booksByShelfName[key].map(book => (
-                        <li key={book.id} className="list-books-content">
-                          <Book book={book}/>
-                        </li>
-                      )
-                    )}
                     {/* 下面这个地方调了好久都调不出来，总是 item undefined。最后凭借经验，我才就是初始化和异步的问题
                           结果猜对了。 用condition先验证一下就行！ https://www.debuggr.io/react-map-of-undefined/ */}
+                    {data_each_grid && data_each_grid.sort(sortBy('title')).map(book => (
+                          <li key={book.id} className="list-books-content">
+                            <Book book={book}/>
+                          </li>
+                        )
+                      )}
                   </ol>
                 </div>
               </div>)
