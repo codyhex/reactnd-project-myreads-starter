@@ -19,10 +19,12 @@ class BooksApp extends React.Component {
     if (this.state.books) {
       BooksAPI.update(book,shelf).then(() => {
         book.shelf = shelf;
-        this.setState(state => ({
-          books: state.books.filter(b => b.id !== book.id).concat([ book ])
+        this.setState(prevState => ({
+          // 把旧 state 里面的 其他书filter出来然后跟 updated的这本书 concat成一个新state。效率好低
+          books: prevState.books.filter(b => b.id !== book.id).concat([ book ])
         }))
       })
+      console.log(this.state.books)
     }
   }
 

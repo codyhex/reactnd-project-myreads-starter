@@ -22,6 +22,7 @@ export const getAll = () =>
     .then(res => res.json())
     .then(data => data.books)
 
+// 这个肯定是单一 book update 的 api call
 export const update = (book, shelf) =>
   fetch(`${api}/books/${book.id}`, {
     method: 'PUT',
