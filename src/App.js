@@ -16,12 +16,16 @@ class BooksApp extends React.Component {
   }
 
   moveBook = (book, shelf) => {
-    if (this.state.books) {
-      BooksAPI.update(book,shelf).then(() => {
+    if (this.state.books) { // 安全检查是对的
+      BooksAPI.update(book,shelf).then(() => {  // 先更新 backend 数据
         book.shelf = shelf;
         this.setState(prevState => ({
           // 把旧 state 里面的 其他书filter出来然后跟 updated的这本书 concat成一个新state。效率好低
-          books: prevState.books.filter(b => b.id !== book.id).concat([ book ])
+          // NOTE：但是研究过后发现这种 waste mem的方法是最好的，因为不会产生更多的麻烦比如 race，或者 内部setState不work
+          // books: prevState.books.filter(b => b.id !== book.id).concat([ book ])
+          // ES6 以后可以用 spread 符号 这么写，感觉运行的快了一些。
+          // https://stackoverflow.com/questions/26253351/correct-modification-of-state-arrays-in-reactjs
+          books: [...prevState.books.filter( bk => bk.id !== book.id), book]
         }))
       })
       console.log(this.state.books)
@@ -30,11 +34,8 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
     // 这个fetch后台的数据里面装的是 book info array list
-    // 所以存到 books 比较合适。
-    //
-    /*
-    然后这个 com did mt 的位置居然写对了。
-    */
+    // 所以存到 state：books 比较合适。
+    // 不如说所有的 fetched data 都存到 root 级别 app 里面去
     BooksAPI.getAll()
       .then((books) => {
         this.setState({ books } ) // 如果state里是单一变量，或者是名字一样的就可以直接传？我猜的
