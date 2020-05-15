@@ -3,6 +3,11 @@ import Book from './Book'
 import PropTypes from 'prop-types'
 import sortBy from 'sort-by'
 
+/*
+  This class renders several "section"s that stays on a single shelf",
+  but due to the homework api. I did not change the props' name,
+  where the props.shelf should be called "section"
+ */
 class Bookshelf extends Component {
   static propTypes = {
     // 所有书的data从上面传进来
@@ -39,7 +44,12 @@ class Bookshelf extends Component {
     const booksByShelfName = groupBy(booksOnShelf, 'shelf');
     // console.log(booksByShelfName)
     // console.log(booksByShelfName['wantToRead'])
-
+    /*
+      You can divide the logic further down, make a class called section to let the render
+      creates several sections. However, because we have the Book as another class, develop a section class
+      may break the deepest three layer rule.
+      Currently we have App.Bookshelf.Book to reach the bottom, which looks simple and not complicated.
+    */
     return (
       <div>
         {/* 这里直接安装 book 属性里面的 shelf name 创建相对应 shelf render view */}

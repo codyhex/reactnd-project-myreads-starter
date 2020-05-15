@@ -26,8 +26,6 @@ class Book extends Component {
 
     return (
       <div className="book">
-        <div className="book-title">{book.title}</div>
-        <div className="book-authors">{book.authors}</div>
         <div className="book-top">
           <div className="book-cover" style={{height: 192, width: 128, backgroundImage: `url(${book.imageLinks !== undefined ? book.imageLinks.thumbnail : ''})`}}></div>
           <div className="book-shelf-changer">
@@ -41,6 +39,8 @@ class Book extends Component {
             </select>
           </div>
         </div>
+        <div className="book-title">{book.title}</div>
+        <div className="book-authors">{book.authors}</div>
       </div>
     )
   }
