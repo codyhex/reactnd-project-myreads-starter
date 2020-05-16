@@ -1,5 +1,6 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
+import {Route, Link} from 'react-router-dom'
 import './App.css'
 import Bookshelf from './Bookshelf'
 import SearchBooks from './SearchBooks'
@@ -48,6 +49,33 @@ class BooksApp extends React.Component {
 
   render() {
     return (
+      <div className="app2">
+        <Route exact path="/" render={()=>(
+          <div className="list-books">
+            <div className="list-books-title">
+              <h1>MyReads</h1>
+            </div>
+            <Bookshelf
+              /*  把数据data， 也就是书全部传进 shelf 里面，让他自己独立现实好。*/
+              shelfName={"my-reads"}
+              booksOnShelf={this.state.books}
+              onMoveBook={this.moveBook}
+            />
+            <div className="open-search">
+              {/* 这个open-search 是 css button, 真简单，用link以后什么都不用写？ */}
+              <Link to='/search'>Add a Book</Link>
+            </div>
+          </div>
+        )} />
+      {/*  所以 route 的相对路径就是在 root div 下的并列 components*/}
+      <Route exact path='/search' render={()=>(
+        <SearchBooks/>
+
+      )} />
+
+      </div>
+
+
       <div className="app">
         {this.state.showSearchPage ? (
           <div className="search-books">
@@ -69,25 +97,10 @@ class BooksApp extends React.Component {
             </div>
             <div className="search-books-results">
               <ol className="books-grid"></ol>
-              <SearchBooks/>
             </div>
           </div>
         ) : (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <Bookshelf
-              /*  把数据data， 也就是书全部传进 shelf 里面，让他自己独立现实好。*/
-              shelfName={"my-reads"}
-              booksOnShelf={this.state.books}
-              onMoveBook={this.moveBook}
-            />
-            <div className="open-search">
-              {/* 这个就是 set Flag 方法，然后每次set flag true 就会 rerender？ */}
-              <button onClick={() => this.setState({showSearchPage: true})}>Add a book</button>
-            </div>
-          </div>
+
         )}
       </div>
     )
