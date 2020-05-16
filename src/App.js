@@ -2,6 +2,7 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Bookshelf from './Bookshelf'
+import SearchBooks from './SearchBooks'
 
 class BooksApp extends React.Component {
   state = {
@@ -62,11 +63,13 @@ class BooksApp extends React.Component {
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
                 <input type="text" placeholder="Search by title or author"/>
+              {/*  这里如何传 query 进去search 然后把找到的结果 放在下面 display 出来。 就是 shelf 一样？ */}
 
               </div>
             </div>
             <div className="search-books-results">
               <ol className="books-grid"></ol>
+              <SearchBooks/>
             </div>
           </div>
         ) : (
@@ -81,6 +84,7 @@ class BooksApp extends React.Component {
               onMoveBook={this.moveBook}
             />
             <div className="open-search">
+              {/* 这个就是 set Flag 方法，然后每次set flag true 就会 rerender？ */}
               <button onClick={() => this.setState({showSearchPage: true})}>Add a book</button>
             </div>
           </div>

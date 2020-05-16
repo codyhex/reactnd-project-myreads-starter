@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-class ShoppingList extends React.Component {
+class SearchBooks extends React.Component {
     render() {
         return (
             <div className="shopping-list">
@@ -15,3 +15,5 @@ class ShoppingList extends React.Component {
         );
     }
 }
+
+export default SearchBooks
