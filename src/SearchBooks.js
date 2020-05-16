@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
+import {Link} from "react-router-dom";
 import PropTypes from 'prop-types'
+import * as BookAPI from './BooksAPI'
 
 class SearchBooks extends React.Component {
+    // 如何传进来数据
+    // 应该传什么数据
+    // 怎么缓存搜索结果
+
     render() {
         return (
             <div className="shopping-list">
