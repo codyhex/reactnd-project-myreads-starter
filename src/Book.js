@@ -6,7 +6,7 @@ class Book extends Component {
 
   static propTypes = {
     book: PropTypes.object.isRequired,
-    shelfNameKeys: PropTypes.array.isRequired,
+    shelfNameKeys: PropTypes.array.isRequired,    // books 里面这个 key 是下拉菜单用的。
     shelfDisplayNames: PropTypes.array.isRequired,
     onMoveBook: PropTypes.func.isRequired //这个就是课里面学的，虽然action是在book class发生，
                                           //但是数据的变化要从上层管理者传进来handler。因为从逻辑上讲data holder不应该自己能改变数据
