@@ -5,7 +5,7 @@ import * as BookAPI from './BooksAPI'
 import sortBy from 'sort-by'
 import Book from "./Book";
 
-class SearchBooks extends React.Component {
+class SearchBooks extends Component {
   // 如何传进来数据
   // 应该传什么数据
   // 怎么缓存搜索结果
@@ -14,8 +14,8 @@ class SearchBooks extends React.Component {
 
   static propTypes = {
     booksOnShelf: PropTypes.array,
-    shelfNameKeys: PropTypes.string.isRequired,
-    shelfDisplayNames: PropTypes.string.isRequired,
+    shelfNameKeys: PropTypes.array.isRequired,
+    shelfDisplayNames: PropTypes.array.isRequired,
     onMoveBook: PropTypes.func.isRequired
   }
   // 我还是不太明白什么时候要用 state，是需要有 var 变化检测的时候吗？
@@ -42,8 +42,7 @@ class SearchBooks extends React.Component {
         }
         console.log(books)
         books.map(book => (
-          this.props.booksOnShelf.filter( (bk) => (bk.id === book.id ))
-            .map(bk => book.shelf = bk.shelf) // 这句 map 没明白
+          this.props.booksOnShelf.filter( (bk) => (bk.id === book.id )).map(bk => book.shelf = bk.shelf) // 这句 map 没明白
         ))
 
         this.setState({books} )   // 注意花括号
@@ -68,15 +67,16 @@ class SearchBooks extends React.Component {
           <div className='search-books-results'>
             <ol className='books-grid'>
               {this.state.books.sort(sortBy('title'))
-                .map(book => (
-                  <Book
-                    book={book}
-                    shelfNameKeys={this.props.shelfNameKeys}
-                    shelfDisplayNames={this.props.shelfDisplayNames}
-                    onMoveBook={this.props.onMoveBook}
-                  />
-                ))
+                // .map(book => (
+                //   <Book
+                //     book={book}
+                //     shelfNameKeys={this.props.shelfNameKeys}
+                //     shelfDisplayNames={this.props.shelfDisplayNames}
+                //     onMoveBook={this.props.onMoveBook}
+                //   />
+                // ))
               }
+              {console.log('search sorted', this.state.books)}
             </ol>
           </div>
         </div>

@@ -6,6 +6,7 @@ import Bookshelf from './Bookshelf'
 import SearchBooks from './SearchBooks'
 
 class BooksApp extends React.Component {
+
   state = {
     /**
      * TODO: Instead of using this state variable to keep track of which page
@@ -15,6 +16,8 @@ class BooksApp extends React.Component {
      */
     showSearchPage: false,
     books: [],
+    shelfNameKeys : ["currentlyReading", "wantToRead", "read", "none"],
+    shelfDisplayNames : ["Currently Reading", "Want To Read", "Read", "None"]
   }
 
   moveBook = (book, shelf) => {
@@ -69,7 +72,9 @@ class BooksApp extends React.Component {
         )} />
       {/*  所以 route 的相对路径就是在 root div 下的并列 components*/}
       <Route exact path='/search' render={()=>(
-        <SearchBooks/>
+        <SearchBooks shelfNameKeys={this.state.shelfNameKeys}
+                     shelfDisplayNames={this.state.shelfDisplayNames}
+                     onMoveBook={this.moveBook} />
 
       )} />
 
