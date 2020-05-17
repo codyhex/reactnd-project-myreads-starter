@@ -72,7 +72,8 @@ class BooksApp extends React.Component {
         )} />
       {/*  所以 route 的相对路径就是在 root div 下的并列 components*/}
       <Route exact path='/search' render={()=>(
-        <SearchBooks shelfNameKeys={this.state.shelfNameKeys}
+        <SearchBooks booksOnShelf={this.state.books}  // 这太坑爹了 同一个变量不同 scope里面名字不同
+                     shelfNameKeys={this.state.shelfNameKeys}
                      shelfDisplayNames={this.state.shelfDisplayNames}
                      onMoveBook={this.moveBook} />
 
