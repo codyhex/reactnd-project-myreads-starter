@@ -13,6 +13,8 @@ class Bookshelf extends Component {
     // 所有书的data从上面传进来
     shelfName: PropTypes.string.isRequired,
     booksOnShelf: PropTypes.array.isRequired,
+    shelfNameKeys: PropTypes.array.isRequired,
+    shelfDisplayNames: PropTypes.array.isRequired,
     onMoveBook: PropTypes.func.isRequired
 
   }
@@ -21,8 +23,6 @@ class Bookshelf extends Component {
     // 没办法我想从data里把这个信息抽取出来，但是那样就变得特别不可控了。
     // 所以不如把这个弄城市fixed 约定好的类别，要改只能从这里改。
     // render 里面的方法可以看见 下面的变量，但是不可以直接条用 props 里面的，需要加写 this.props.var
-    const shelfNameKeys = ["currentlyReading", "wantToRead", "read", "none"]
-    const shelfDisplayNames = ["Currently Reading", "Want To Read", "Read", "None"]
 
     const {booksOnShelf} = this.props
     // 然后注意了：这个shelf 不需要hold data，只是用来render
@@ -53,13 +53,13 @@ class Bookshelf extends Component {
     return (
       <div>
         {/* 这里直接安装 book 属性里面的 shelf name 创建相对应 shelf render view */}
-        {shelfNameKeys.map((key, index) => {
+        {this.props.shelfNameKeys.map((key, index) => {
             // 上面的那个花括号在 React里面解释为：小括号的话会自动 return里面 wrap的东西。
             // 花括号你就得自己写 return， 而且记住 return 后面不能空，那样就会 return undefined object
             let data_each_grid = booksByShelfName[key]; // 这里开一个 ref var 简化代码长度
             return (
               <div key={key+"-shelf"} className="bookshelf">
-                <h2 className="bookshelf-title">{shelfDisplayNames[index]}</h2>
+                <h2 className="bookshelf-title">{this.props.shelfDisplayNames[index]}</h2>
                 {/*{console.log('out book', booksByShelfName[key])}*/}
                 <div className="bookshelf-books">
                   <ol key={key+"-grid"} className="books-grid">
@@ -69,8 +69,8 @@ class Bookshelf extends Component {
                       <li key={book.id} className="list-books-content">
                         <Book
                           book={book}
-                          shelfNameKeys={shelfNameKeys}
-                          shelfDisplayNames={shelfDisplayNames}
+                          shelfNameKeys={this.props.shelfNameKeys}
+                          shelfDisplayNames={this.props.shelfDisplayNames}
                           onMoveBook={this.props.onMoveBook}/>
                       </li>)
                     )}

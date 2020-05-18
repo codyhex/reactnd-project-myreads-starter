@@ -62,11 +62,13 @@ class BooksApp extends React.Component {
               /*  把数据data， 也就是书全部传进 shelf 里面，让他自己独立现实好。*/
               shelfName={"my-reads"}
               booksOnShelf={this.state.books}
+              shelfNameKeys={this.state.shelfNameKeys}
+              shelfDisplayNames={this.state.shelfDisplayNames}
               onMoveBook={this.moveBook}
             />
             <div className="open-search">
-              {/* 这个open-search 是 css button, 真简单，用link以后什么都不用写？ */}
-              <Link to="/search">Add a book</Link>
+              {/* 这个open-search 是 css button, 所以加了 link to 以后仍然需要写上button tag，这样css才work */}
+              <Link to="/search"><button>Add a book</button></Link>
             </div>
           </div>
         )}/>

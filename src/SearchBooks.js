@@ -44,7 +44,7 @@ class SearchBooks extends Component {
         // use my local shelf info to overwrite the search results
         console.log('search results full', query, matched_books)
         // 我发现 search results 没有 shelf 属性，所以是不是在本地全给赋值成None，然后这一个page只是缓存None
-        matched_books.map(matched_book => (matched_book.shelf = 'None'))
+        matched_books.map(matched_book => (matched_book.shelf = 'none'))
         matched_books.map(matched_book => (
           this.props.booksOnShelf.filter((local_book) => (local_book.id === matched_book.id))
             .map(local_book => matched_book.shelf = local_book.shelf)
