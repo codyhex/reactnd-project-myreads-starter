@@ -43,13 +43,15 @@ class SearchBooks extends Component {
         // to show only the matched results that is on my shelf
         // use my local shelf info to overwrite the search results
         console.log('search results full', query, matched_books)
+        // 我发现 search results 没有 shelf 属性，所以是不是在本地全给赋值成None，然后这一个page只是缓存None
+        matched_books.map(matched_book => (matched_book.shelf = 'None'))
         matched_books.map(matched_book => (
           this.props.booksOnShelf.filter((local_book) => (local_book.id === matched_book.id))
             .map(local_book => matched_book.shelf = local_book.shelf)
         ))
 
         this.setState({books_filtered: matched_books})   // 注意花括号
-        console.log('search results filtered', query, matched_books)
+        console.log('search results filtered', query, this.state.books_filtered)
       })
     }
   }
@@ -75,14 +77,14 @@ class SearchBooks extends Component {
               .map(book => (
                 <Book
                   book={book}
-                  key={book.id}
+                  key={book.id} // 每个 list item 都要给一个 key
                   shelfNameKeys={this.props.shelfNameKeys}
                   shelfDisplayNames={this.props.shelfDisplayNames}
                   onMoveBook={this.props.onMoveBook}
                 />
               ))
             }
-            {console.log('search displays', this.state.books_filtered)}
+            {/*{console.log('search displays', this.state.books_filtered)}*/}
           </ol>
         </div>
       </div>

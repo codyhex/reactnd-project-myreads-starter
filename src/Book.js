@@ -12,9 +12,6 @@ class Book extends Component {
                                           //但是数据的变化要从上层管理者传进来handler。因为从逻辑上讲data holder不应该自己能改变数据
   }
 
-  // moveToShelf(shelf) {
-  //     this.props.onMoveBook(this.props.book, shelf)
-  // }
 
   moveToShelf(shelfNameKey) {
     // 因为动作的主题就是这本书，所以可以写个shortcut，把书的obj固化下来，内部API只留一个target shelf
@@ -22,7 +19,7 @@ class Book extends Component {
   }
 
   render() {
-    const {book} = this.props
+    const {book} = this.props // 这样是create 一个快捷键ref
 
     return (
       <div className="book">
@@ -31,16 +28,16 @@ class Book extends Component {
           <div className="book-shelf-changer">
             <select value={book.shelf} onChange={(event) => this.moveToShelf(event.target.value)}>
               <option key={"empty"} value="" disabled>Move to...</option>
-              {this.props.shelfNameKeys.map((key, index) => (
-                <option key={key} value={key}>{this.props.shelfDisplayNames[index]}</option>
-              ))}
+              {this.props.shelfNameKeys.map((key, index) => {
+                  return <option key={key} value={key}>{this.props.shelfDisplayNames[index]}</option>
+              })}
               {/*/!* 不知道为什么要有这个none 先写上吧 *!/*/}
               {/*<option value="none">None</option>*/}
             </select>
           </div>
         </div>
-        <div className="book-title">{book.title}</div>
-        <div className="book-authors">{book.authors}</div>
+        <div className="book-title">{this.props.book.title}</div>
+        <div className="book-authors">{this.props.book.authors}</div>
       </div>
     )
   }

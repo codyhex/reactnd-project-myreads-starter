@@ -66,7 +66,7 @@ class BooksApp extends React.Component {
             />
             <div className="open-search">
               {/* 这个open-search 是 css button, 真简单，用link以后什么都不用写？ */}
-              <Link to='/search'>Add a Book</Link>
+              <Link to="/search">Add a book</Link>
             </div>
           </div>
         )}/>

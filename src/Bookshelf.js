@@ -84,9 +84,6 @@ class Bookshelf extends Component {
     );
   }
 
-//  下面这里 重点写如何把 data render 在一个 shelf 的 range 里/
-
-
 }
 
 export default Bookshelf
