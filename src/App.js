@@ -16,8 +16,8 @@ class BooksApp extends React.Component {
      */
     showSearchPage: false,
     books: [],
-    shelfNameKeys : ["currentlyReading", "wantToRead", "read", "none"],
-    shelfDisplayNames : ["Currently Reading", "Want To Read", "Read", "None"]
+    shelfNameKeys: ["currentlyReading", "wantToRead", "read", "none"],
+    shelfDisplayNames: ["Currently Reading", "Want To Read", "Read", "None"]
   }
 
   moveBook = (book, shelf) => {
@@ -53,7 +53,7 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        <Route exact path="/" render={()=>(
+        <Route exact path="/" render={() => (
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
@@ -69,15 +69,15 @@ class BooksApp extends React.Component {
               <Link to='/search'>Add a Book</Link>
             </div>
           </div>
-        )} />
-      {/*  所以 route 的相对路径就是在 root div 下的并列 components*/}
-      <Route exact path='/search' render={()=>(
-        <SearchBooks booksOnShelf={this.state.books}  // 这太坑爹了 同一个变量不同 scope里面名字不同
-                     shelfNameKeys={this.state.shelfNameKeys}
-                     shelfDisplayNames={this.state.shelfDisplayNames}
-                     onMoveBook={this.moveBook} />
+        )}/>
+        {/*  所以 route 的相对路径就是在 root div 下的并列 components */}
+        <Route exact path='/search' render={() => (
+          <SearchBooks booksOnShelf={this.state.books}  // 这太坑爹了 同一个变量不同 scope里面名字不同
+                       shelfNameKeys={this.state.shelfNameKeys}
+                       shelfDisplayNames={this.state.shelfDisplayNames}
+                       onMoveBook={this.moveBook}/>
 
-      )} />
+        )}/>
 
       </div>
 
